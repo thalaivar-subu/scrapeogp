@@ -1,7 +1,8 @@
 import logger from "../utils/logger";
 import { load } from "cheerio";
-import { get } from "axios";
 import { isValidArray } from "../utils/common";
+import { formatProperty, getHtmlFromUrl } from "../helper/ogMetadatahelper";
+
 const resolvers = {
   Query: {
     async getOgMetadata(parent, args, context, info) {
@@ -21,11 +22,7 @@ const resolvers = {
             property.startsWith("og:") &&
             content
           ) {
-            const key = `og${property
-              .charAt(property.indexOf(":") + 1)
-              .toUpperCase()}${property.slice(
-              property.indexOf(":") + 2
-            )}`.replace(/[^a-zA-Z ]/g, "");
+            const key = formatProperty(property);
 
             if (ogInfo[key] && isValidArray(ogInfo[key])) {
               ogInfo[key].push(content);
@@ -41,14 +38,6 @@ const resolvers = {
       }
     },
   },
-};
-const getHtmlFromUrl = async (url) => {
-  try {
-    const { data } = await get(url);
-    return data;
-  } catch (error) {
-    logger.error("Error while getting html from url -> ", error);
-  }
 };
 
 export default resolvers;

@@ -55,7 +55,7 @@ describe("OG Scraper Test Cases", () => {
           data: {
             data: { getOgMetadata },
           },
-        } = await post(`${TEST_URL}/playground`, {
+        } = await post(`${TEST_URL}/graphql`, {
           query,
         });
         expect(status).toBe(200);

@@ -48,7 +48,11 @@ app.get("/", (req, res) => {
 });
 
 const ApolloGql = new ApolloServer({ typeDefs, resolvers });
-ApolloGql.applyMiddleware({ app, path: "/playground" });
+ApolloGql.applyMiddleware({
+  app,
+  path: "/graphql",
+  debug: false,
+});
 
 // App Listens
 app.listen(PORT, () => {
