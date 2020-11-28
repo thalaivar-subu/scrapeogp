@@ -1,0 +1,46 @@
+{
+  "name": "scrapeogp",
+  "version": "1.0.0",
+  "description": "Scrapes Open Graph Protocol Parameters",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "nodemon index.js",
+    "test": "start-server-and-test 'NODE_ENV=test node index.js' 8081 'jest --coverage --forceExit'",
+    "lint": "npx eslint . --ext .js",
+    "lint-fix": "npx eslint . --ext .js --fix",
+    "prettify": "npx prettier . --ext.js --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thalaivar-subu/scrapeogp.git"
+  },
+  "author": "Subramanian.VE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thalaivar-subu/scrapeogp/issues"
+  },
+  "homepage": "https://github.com/thalaivar-subu/scrapeogp#readme",
+  "devDependencies": {
+    "@babel/core": "7.12.7",
+    "@babel/plugin-transform-runtime": "7.12.1",
+    "@babel/preset-env": "7.12.7",
+    "@babel/register": "7.12.1",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-module-resolver": "4.0.0",
+    "eslint": "7.14.0",
+    "jest": "26.6.3",
+    "nodemon": "2.0.6",
+    "prettier": "2.2.0",
+    "start-server-and-test": "1.11.6"
+  },
+  "dependencies": {
+    "axios": "0.21.0",
+    "express": "4.17.1",
+    "express-http-context": "1.2.4",
+    "fast-safe-stringify": "2.0.7",
+    "morgan": "1.10.0",
+    "uniqid": "5.2.0",
+    "winston": "3.3.3"
+  }
+}
