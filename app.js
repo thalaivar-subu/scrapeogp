@@ -7,6 +7,9 @@ import uniqid from "uniqid";
 import { middleware, set } from "express-http-context";
 import logger from "./utils/logger";
 import { APP_NAME, PORT, NODE_ENV } from "./lib/constants";
+import { ApolloServer } from "apollo-server-express";
+import resolvers from "./graphql/resolver";
+import typeDefs from "./graphql/types";
 
 const app = express();
 
@@ -43,6 +46,9 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.status(200).send({ message: "I am Alive" });
 });
+
+const ApolloGql = new ApolloServer({ typeDefs, resolvers });
+ApolloGql.applyMiddleware({ app, path: "/playground" });
 
 // App Listens
 app.listen(PORT, () => {

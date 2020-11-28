@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "start-dev": "nodemon index.js",
-    "test": "start-server-and-test 'NODE_ENV=test node index.js' 8081 'jest --coverage --forceExit'",
+    "test": "start-server-and-test 'NODE_ENV=test node index.js' 8081 'jest --coverage --verbose'",
     "lint": "npx eslint . --ext .js",
     "lint-fix": "npx eslint . --ext .js --fix",
     "prettify": "npx prettier . --ext.js --write"
@@ -35,12 +35,19 @@
     "start-server-and-test": "1.11.6"
   },
   "dependencies": {
+    "apollo-server": "2.19.0",
+    "apollo-server-express": "2.19.0",
     "axios": "0.21.0",
+    "cheerio": "1.0.0-rc.3",
     "express": "4.17.1",
     "express-http-context": "1.2.4",
     "fast-safe-stringify": "2.0.7",
+    "graphql": "14.2.1",
     "morgan": "1.10.0",
     "uniqid": "5.2.0",
     "winston": "3.3.3"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.2.1"
   }
 }
