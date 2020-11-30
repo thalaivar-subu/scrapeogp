@@ -10,16 +10,16 @@ functions:
   graphql:
     name: graphql
     handler: build/app.graphqlHandler
-    environment: 
+    environment:
       LAMBDA: "true"
     events:
-    - http:
-        path: graphql
-        method: post
-        cors: true
-    - http:
-        path: graphql
-        method: get
-        cors: true
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true
 plugins:
   - serverless-offline

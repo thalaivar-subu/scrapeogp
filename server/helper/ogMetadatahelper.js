@@ -1,5 +1,5 @@
 import { get } from "axios";
-
+import logger from "../utils/logger";
 // Fetches html body from given endpoint
 export const getHtmlFromUrl = async (url) => {
   try {

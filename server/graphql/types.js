@@ -1,6 +1,7 @@
 import { gql } from "apollo-server-express";
 import { GraphQLScalarType, GraphQLError, Kind } from "graphql";
 
+// eslint-disable-next-line no-unused-vars
 const gQlScalarType = new GraphQLScalarType({
   name: "gQlScalar",
   description: "Any JSON object. This type bypasses type checking",

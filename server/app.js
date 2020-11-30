@@ -7,7 +7,6 @@ import uniqid from "uniqid";
 import { middleware, set } from "express-http-context";
 import logger from "./utils/logger";
 import { APP_NAME, PORT, NODE_ENV, LAMBDA } from "./lib/constants";
-import { ApolloServer } from "apollo-server-lambda";
 import resolvers from "./graphql/resolver";
 import typeDefs from "./graphql/types";
 
@@ -79,7 +78,9 @@ if (LAMBDA) {
     path: "/graphql",
   });
   app.listen(PORT, () => {
-    logger.info(`${APP_NAME} app listening at http://localhost:${PORT}`);
+    logger.info(
+      `${NODE_ENV} ${APP_NAME} app listening at http://localhost:${PORT}`
+    );
   });
 }
 exports.graphqlHandler = graphqlHandler;

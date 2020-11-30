@@ -5,6 +5,7 @@ import { formatProperty, getHtmlFromUrl } from "../helper/ogMetadatahelper";
 
 const resolvers = {
   Query: {
+    // eslint-disable-next-line no-unused-vars
     async getOgMetadata(parent, args, context, info) {
       logger.info("getOgMetadata args -> ", { args });
       try {
