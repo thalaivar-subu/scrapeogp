@@ -6,8 +6,8 @@ import { parseJson } from "./utils/common";
 import uniqid from "uniqid";
 import { middleware, set } from "express-http-context";
 import logger from "./utils/logger";
-import { APP_NAME, PORT, NODE_ENV } from "./lib/constants";
-import { ApolloServer } from "apollo-server-express";
+import { APP_NAME, PORT, NODE_ENV, LAMBDA } from "./lib/constants";
+import { ApolloServer } from "apollo-server-lambda";
 import resolvers from "./graphql/resolver";
 import typeDefs from "./graphql/types";
 
@@ -47,14 +47,34 @@ app.get("/", (req, res) => {
   res.status(200).send({ message: "I am Alive" });
 });
 
-const ApolloGql = new ApolloServer({ typeDefs, resolvers });
-ApolloGql.applyMiddleware({
-  app,
-  path: "/graphql",
-  debug: false,
-});
-
-// App Listens
-app.listen(PORT, () => {
-  logger.info(`${APP_NAME} app listening at http://localhost:${PORT}`);
-});
+if (LAMBDA) {
+  const { ApolloServer } = require("apollo-server-lambda");
+  const ApolloGql = new ApolloServer({
+    typeDefs,
+    resolvers,
+    playground: {
+      endpoint: "/playground",
+    },
+  });
+  exports.graphqlHandler = ApolloGql.createHandler({
+    cors: {
+      origin: "*",
+    },
+  });
+} else {
+  const { ApolloServer } = require("apollo-server-express");
+  const ApolloGql = new ApolloServer({
+    typeDefs,
+    resolvers,
+    playground: {
+      endpoint: "/playground",
+    },
+  });
+  ApolloGql.applyMiddleware({
+    app,
+    path: "/graphql",
+  });
+  app.listen(PORT, () => {
+    logger.info(`${APP_NAME} app listening at http://localhost:${PORT}`);
+  });
+}
