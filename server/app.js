@@ -46,28 +46,32 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.status(200).send({ message: "I am Alive" });
 });
-
+let graphqlHandler;
 if (LAMBDA) {
+  logger.info("Starting as ServerLess Lambda");
   const { ApolloServer } = require("apollo-server-lambda");
   const ApolloGql = new ApolloServer({
     typeDefs,
     resolvers,
     playground: {
-      endpoint: "/playground",
+      endpoint: "/dev/graphql",
     },
+    introspection: true,
   });
-  exports.graphqlHandler = ApolloGql.createHandler({
+  graphqlHandler = ApolloGql.createHandler({
     cors: {
       origin: "*",
     },
   });
 } else {
+  logger.info("Starting as Normal Express App");
   const { ApolloServer } = require("apollo-server-express");
   const ApolloGql = new ApolloServer({
     typeDefs,
     resolvers,
+    introspection: true,
     playground: {
-      endpoint: "/playground",
+      endpoint: "/graphql",
     },
   });
   ApolloGql.applyMiddleware({
@@ -78,3 +82,4 @@ if (LAMBDA) {
     logger.info(`${APP_NAME} app listening at http://localhost:${PORT}`);
   });
 }
+exports.graphqlHandler = graphqlHandler;
